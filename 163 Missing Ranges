@@ -17,11 +17,11 @@ struct Rng{
   }
 };
 
-vector<Rng> missingRanges(vector<int>&v, int low, int high)
+vector<string> missingRanges(vector<int>&v, int low, int high)
 {
   int n = v.size();
-  vector<Rng> res;
-  if(n==0){ res.push_back(Rng(low, hight)); return res; }
+  vector<string> res;
+  if(n==0){ res.push_back(Rng(low, hight).toString()); return res; }
   if(v[0] > low){
     res.push_back(Rng(low, v[0]-1).toString());
   }
