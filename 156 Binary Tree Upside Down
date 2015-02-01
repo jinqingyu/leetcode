@@ -22,6 +22,26 @@ return the root of the binary tree [4,5,2,#,#,3,1].
 */
 
 TreeNode* upsideDown(TreeNode* root){
+    TreeNode* res;
+    upsideDownRec(root, res);
+    return res;
+}
+
+TreeNode* upsideDownRec(TreeNode* node, Tree*&newRoot){
+    if(node==NULL) return NULL;
+    if(!node->left && !node->right){
+        newRoot = node;
+        return node;
+    }
+    
+    TreeNode* newP = upsideDownRec(node->left, newRoot);
+    newP->right = node;
+    newP->left = node->right;
+    node->left = node->right = NULL;
+    return node;
+}
+
+TreeNode* upsideDown(TreeNode* root){
     if(!root) return NULL;
     TreeNode* left = root, *parent = NULL, *right = NULL;
     
