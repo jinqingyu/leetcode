@@ -20,3 +20,19 @@ return the root of the binary tree [4,5,2,#,#,3,1].
    3   1  
    
 */
+
+TreeNode* upsideDown(TreeNode* root){
+    if(!root) return NULL;
+    TreeNode* left = root, *parent = NULL, *right = NULL;
+    
+    while(left){
+        TreeNode *nextLeft = left->left, *nextRight = left->right;
+        left->right = parent;
+        left->left = right;
+        
+        parent = left;
+        left  = nextLeft;
+        right = nextRight;
+    }
+    return parent;
+}
