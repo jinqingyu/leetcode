@@ -4,3 +4,31 @@ Given a sorted integer array where the range of elements are [lower, upper] incl
 For example, given [0, 1, 3, 50, 75], lower = 0 and upper = 99, return ["2", "4->49", "51->74", "76->99"].
 
 */
+
+struct Rng{
+  int beg;
+  int end;
+  Rng(int b, int e) : beg(b), end(e){}
+};
+
+vector<Rng> missingRanges(vector<int>&v, int low, int high)
+{
+  int n = v.size();
+  vector<Rng> res;
+  if(n==0){ res.push_back(Rng(low, hight)); return res; }
+  if(v[0] > low){
+    res.push_back(Rng(low, v[0]-1));
+  }
+  
+  int reached = v[0];
+  for(int i=1; i<n; i++){
+    if(v[i] > reached+1){ // gap
+      res.push_back(Rng(reached+1, v[i]-1));
+    } 
+    reached = v[i];
+  }
+  if(reached < high){
+    res.push_back(Rng(reached+1, hight));
+  }
+  return res;
+}
