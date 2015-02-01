@@ -9,6 +9,12 @@ struct Rng{
   int beg;
   int end;
   Rng(int b, int e) : beg(b), end(e){}
+  string toString(){
+    string res;
+    if(begin==end){ res = to_string(begin); }
+    else    { res = to_string(begin)+"->"+to_string(end); }
+    return res;
+  }
 };
 
 vector<Rng> missingRanges(vector<int>&v, int low, int high)
@@ -17,18 +23,18 @@ vector<Rng> missingRanges(vector<int>&v, int low, int high)
   vector<Rng> res;
   if(n==0){ res.push_back(Rng(low, hight)); return res; }
   if(v[0] > low){
-    res.push_back(Rng(low, v[0]-1));
+    res.push_back(Rng(low, v[0]-1).toString());
   }
   
   int reached = v[0];
   for(int i=1; i<n; i++){
     if(v[i] > reached+1){ // gap
-      res.push_back(Rng(reached+1, v[i]-1));
+      res.push_back(Rng(reached+1, v[i]-1).toString());
     } 
     reached = v[i];
   }
   if(reached < high){
-    res.push_back(Rng(reached+1, hight));
+    res.push_back(Rng(reached+1, hight).toString());
   }
   return res;
 }
